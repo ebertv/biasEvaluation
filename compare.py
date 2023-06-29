@@ -49,18 +49,17 @@ def compare_sequences(filename1, filename2, minimum_length=3):
         seq = []
         if file1[i] in file2:
             indicies = get_indicies(file1[i], file2)
-            for index in indicies:
+            for idx in indicies:
                 seq = [file1[i]]
-                for j in range(1, len(file1)-i):
-                    if file1[i+j] == file2[index+j]:
+                for j in range(1, len(file2)-idx):
+                    if file1[i+j] == file2[idx+j]:
                         seq.append(file1[i+j])
                     else:
                         break
-        if len(seq) >= minimum_length:
-            shared.append(seq)
-            i += len(seq)
-        else:
-            i += 1
+                if len(seq) >= minimum_length:
+                    shared.append(seq)
+                    i += len(seq)-1
+        i += 1
     return shared
 
 def longest_sequence(filename1, filename2, minimum_length=3):
@@ -84,7 +83,8 @@ def amount_of_shared_sequences(filename1, filename2, minimum_length=3):
 
 
 def main():
-    pass
+    print(compare_sequences("architecture_man.txt", "architecture_woman.txt", 3))
+    print(compare_sequences("architecture_woman.txt", "architecture_man.txt", 3))
 
 if __name__ == '__main__':
     main()
